@@ -134,6 +134,7 @@ MonoBehaviour:
   moveSpeedMultiplier: 10
   firedParticles: {fileID: 114876017486447794, guid: 7ad32d011954a3641ad2cfde89f7c60f,
     type: 3}
+  particlesUsedFiringSwarm: 100
 --- !u!199 &8987142882267561777
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -764,7 +765,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 400
+    maxNumParticles: 450
     size3D: 0
     rotation3D: 0
     gravityModifier:
