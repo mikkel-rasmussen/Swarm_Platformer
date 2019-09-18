@@ -43,12 +43,6 @@ public class MazeReader : MonoBehaviour
         return new Maze(width, height, objects);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public class Maze
     {
         public IList<GameObject> Objects { get; set; }
