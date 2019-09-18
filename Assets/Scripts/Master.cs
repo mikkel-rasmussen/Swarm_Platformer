@@ -5,11 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class Master : MonoBehaviour
 {
+    public int timeLimitInSecs = 240;
+    private float timePassed = 0f;
+
     [SerializeField] Transform PlayerStart = null;
     [SerializeField] Transform PlayerEnd = null;
 
     [SerializeField] Transform PlayerCharacterRef = null;
     private Transform playerCharacter = null;
+
+    [SerializeField] TMPro.TMP_Text timeLimitText = null;
 
     private void Awake()
     {
@@ -29,7 +34,9 @@ public class Master : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((playerCharacter.position - PlayerEnd.position).sqrMagnitude < 25)
+        timePassed += Time.deltaTime;
+        timeLimitText.text = (timeLimitInSecs - (int)timePassed % 60).ToString();
+        if ((playerCharacter.position - PlayerEnd.position).sqrMagnitude < 25 || timePassed >= timeLimitInSecs)
         {
             SceneManager.LoadScene("EndGame");
         }

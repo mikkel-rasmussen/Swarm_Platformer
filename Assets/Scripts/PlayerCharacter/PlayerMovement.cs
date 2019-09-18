@@ -15,6 +15,13 @@ public class PlayerMovement : MonoBehaviour
     private float minimalFov;
     private float maxFov = 160;
 
+    FadeOutUI no_swarm_cg;
+
+    private void Awake()
+    {
+        no_swarm_cg = GameObject.Find("no_swarm_left").GetComponent<FadeOutUI>();
+    }
+
     private enum PlayerDirection
     {
         Left,
@@ -72,35 +79,36 @@ public class PlayerMovement : MonoBehaviour
 
     private void FireParticles()
     {
-        FiredParticles FP = Instantiate<FiredParticles>(firedParticles, transform.position, transform.rotation);
-
         var ps = GetComponent<ParticleSystem>();
         var main = ps.main;
-        main.maxParticles -= particlesUsedFiringSwarm;
-
-        if (main.maxParticles <= 0)
+        if (main.maxParticles > particlesUsedFiringSwarm)
         {
-            SceneManager.LoadScene("EndGame");
-            return;
-        }
+            FiredParticles FP = Instantiate<FiredParticles>(firedParticles, transform.position, transform.rotation);
 
-        SphereCollider col = FP.gameObject.AddComponent<SphereCollider>(this.GetComponent<SphereCollider>());
+            main.maxParticles -= particlesUsedFiringSwarm;
 
-        col.isTrigger = true;
+            SphereCollider col = FP.gameObject.AddComponent<SphereCollider>(this.GetComponent<SphereCollider>());
 
-        Vector3 target = transform.position;
+            col.isTrigger = true;
 
-        if (eDirection == PlayerDirection.Right)
-        {
-            target += Vector3.right * 30;
+            Vector3 target = transform.position;
+
+            if (eDirection == PlayerDirection.Right)
+            {
+                target += Vector3.right * 30;
+            }
+            else
+            {
+                target += Vector3.left * 30;
+            }
+
+            FP.playerTransform = this.transform;
+            FP.target = target;
+            FP.particlesUsedAmount = particlesUsedFiringSwarm;
         }
         else
         {
-            target += Vector3.left * 30;
+            no_swarm_cg.FadeOut();
         }
-
-        FP.playerTransform = this.transform;
-        FP.target = target;
-        FP.particlesUsedAmount = particlesUsedFiringSwarm;
     }
 }
