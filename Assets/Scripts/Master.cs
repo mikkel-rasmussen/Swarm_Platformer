@@ -29,7 +29,7 @@ public class Master : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((playerCharacter.position - PlayerEnd.position).sqrMagnitude < 15)
+        if ((playerCharacter.position - PlayerEnd.position).sqrMagnitude < 25)
         {
             SceneManager.LoadScene("EndGame");
         }

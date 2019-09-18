@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Camera camera;
     private float minimalFov;
-    private float maxFov = 180;
+    private float maxFov = 160;
 
     private enum PlayerDirection
     {
