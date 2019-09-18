@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private int particlesUsedFiringSwarm = 100;
 
+    private AudioSource _expSound;
+
     private enum PlayerDirection
     {
         Left,
@@ -23,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _expSound = FindObjectsOfType<AudioSource>().FirstOrDefault(x => x.name == "Exp_sound");
     }
 
     // Update is called once per frame
@@ -66,7 +69,8 @@ public class PlayerMovement : MonoBehaviour
         SphereCollider col = FP.gameObject.AddComponent<SphereCollider>(this.GetComponent<SphereCollider>());
 
         col.isTrigger = true;
-
+        _expSound.Play();
+        
         Vector3 target = transform.position;
 
         if (eDirection == PlayerDirection.Right)
