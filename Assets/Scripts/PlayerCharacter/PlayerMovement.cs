@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private FiredParticles firedParticles;
 
+    [SerializeField] private int particlesUsedFiringSwarm = 100;
+
     private enum PlayerDirection
     {
         Left,
@@ -41,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
         transform.Translate(xDir, 0, 0);
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             FireParticles();
         }
@@ -53,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
         var ps = GetComponent<ParticleSystem>();
         var main = ps.main;
-        main.maxParticles -= 300;
+        main.maxParticles -= particlesUsedFiringSwarm;
 
         if (main.maxParticles <= 0)
         {
@@ -78,6 +80,6 @@ public class PlayerMovement : MonoBehaviour
 
         FP.playerTransform = this.transform;
         FP.target = target;
-        FP.particlesUsedAmount = 300;
+        FP.particlesUsedAmount = particlesUsedFiringSwarm;
     }
 }

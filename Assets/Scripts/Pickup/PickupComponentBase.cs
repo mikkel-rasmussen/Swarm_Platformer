@@ -4,10 +4,10 @@ using UnityEngine;
 
 public abstract class PickupComponentBase : MonoBehaviour, IPickupComponent
 {
-    public IPickupComponent Pickup()
+    public virtual IPickupComponent Pickup()
     {
         return this;
     }
 
-    public abstract void Use(PlayerPowerup _poweruoComponent);
+    public abstract void Use(PlayerPowerup _powerupComponent);
 }
