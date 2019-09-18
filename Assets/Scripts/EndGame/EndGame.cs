@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EndGame : MonoBehaviour
 {
     private GameObject statsObject = null;
     private TrackableStats stats = null;
+
+    public Image backgroundImage;
+    public Button restart;
+    public Image headline;
+
+    public Sprite winImg;
+    public Sprite loseImg;
 
     private void Awake()
     {
@@ -16,18 +24,37 @@ public class EndGame : MonoBehaviour
         statsObject.AddComponent<TrackableStats>(stats);
 
         Destroy(stats.gameObject);
+
+        stats = statsObject.GetComponent<TrackableStats>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (stats.winState == 1)
         {
-            SceneManager.LoadScene("MainMenu");
+            // lose
+            backgroundImage.color = Color.black;
+            ColorBlock cb = restart.colors;
+            cb.normalColor = Color.white;
+            cb.highlightedColor = Color.grey;
+            cb.pressedColor = Color.white;
+
+            restart.colors = cb;
+            headline.sprite = loseImg;
         }
-        else if (Input.GetKeyDown(KeyCode.R))
+        else
         {
-            SceneManager.LoadScene("Game");
+            // win
+            backgroundImage.color = Color.white;
+            ColorBlock cb = restart.colors;
+            cb.normalColor = Color.black;
+            cb.highlightedColor = Color.grey;
+            cb.pressedColor = Color.white;
+
+            restart.colors = cb;
+            headline.sprite = winImg;
         }
+
+        restart.onClick.AddListener(() => SceneManager.LoadScene("Game"));
     }
 }

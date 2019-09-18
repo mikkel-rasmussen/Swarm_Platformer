@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class TrackableStats : MonoBehaviour
 {
-    public int temp = 5;
+    public int winState = 0;
 }
