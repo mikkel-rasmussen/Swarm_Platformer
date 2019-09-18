@@ -9,8 +9,11 @@ public class PlayerMovement : MonoBehaviour
     private int moveSpeedMultiplier = 2;
 
     [SerializeField] private FiredParticles firedParticles;
-
     [SerializeField] private int particlesUsedFiringSwarm = 100;
+
+    private Camera camera;
+    private float minimalFov;
+    private float maxFov = 180;
 
     private enum PlayerDirection
     {
@@ -23,7 +26,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        camera = transform.Find("Main Camera").GetComponent<Camera>();
+        minimalFov = camera.fieldOfView;
     }
 
     // Update is called once per frame
@@ -46,6 +50,23 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             FireParticles();
+        }
+        
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            var fov = camera.fieldOfView;
+            fov += 5;
+            fov = Mathf.Clamp(fov, minimalFov, maxFov);
+            camera.fieldOfView = fov;
+        }
+
+
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            var fov = camera.fieldOfView;
+            fov -= 5;
+            fov = Mathf.Clamp(fov, minimalFov, maxFov);
+            camera.fieldOfView = fov;
         }
     }
 
