@@ -37,8 +37,7 @@ public class Master : MonoBehaviour
     {
         timePassed += Time.deltaTime;
         timeLimitText.text = (timeLimitInSecs - (int)timePassed % 60).ToString();
-        if ((playerCharacter.position - PlayerEnd.position).sqrMagnitude < 25 || timePassed >= timeLimitInSecs)
-        if ((playerCharacter.position - PlayerEnd.position).sqrMagnitude < 15)
+        if ((playerCharacter.position - PlayerEnd.position).sqrMagnitude < 25)
         {
             SceneManager.LoadScene("EndGame");
         }
