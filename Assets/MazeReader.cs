@@ -9,7 +9,7 @@ public class MazeReader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var maze = ReadMaze("Assets/Resources/maze_bitmap.bmp", "Prefabs/Cube");
+        var maze = ReadMaze("Assets/Textures/maze_bitmap.bmp", "Prefabs/Cube");
         maze.Activate();
     }
 
