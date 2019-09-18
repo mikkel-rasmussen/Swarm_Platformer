@@ -16,6 +16,8 @@ public class Master : MonoBehaviour
 
     [SerializeField] TMPro.TMP_Text timeLimitText = null;
 
+    private TrackableStats stats;
+
     private void Awake()
     {
         
@@ -26,9 +28,8 @@ public class Master : MonoBehaviour
     {
         playerCharacter = Instantiate<Transform>(PlayerCharacterRef, PlayerStart.position, Quaternion.identity);
         GameObject statsgo  = new GameObject("GameStats");
-        TrackableStats stats = statsgo.AddComponent<TrackableStats>();
+        stats = statsgo.AddComponent<TrackableStats>();
         DontDestroyOnLoad(statsgo);
-        stats.temp = 15;
     }
 
     // Update is called once per frame
@@ -37,7 +38,13 @@ public class Master : MonoBehaviour
         timePassed += Time.deltaTime;
         timeLimitText.text = (timeLimitInSecs - (int)timePassed % 60).ToString();
         if ((playerCharacter.position - PlayerEnd.position).sqrMagnitude < 25 || timePassed >= timeLimitInSecs)
+        if ((playerCharacter.position - PlayerEnd.position).sqrMagnitude < 15)
         {
+            SceneManager.LoadScene("EndGame");
+        }
+        else if (timePassed >= timeLimitInSecs)
+        {
+            stats.winState = 1;
             SceneManager.LoadScene("EndGame");
         }
     }
