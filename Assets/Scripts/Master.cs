@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Master : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class Master : MonoBehaviour
     void Start()
     {
         playerCharacter = Instantiate<Transform>(PlayerCharacterRef, PlayerStart.position, Quaternion.identity);
+        GameObject statsgo  = new GameObject("GameStats");
+        TrackableStats stats = statsgo.AddComponent<TrackableStats>();
+        DontDestroyOnLoad(statsgo);
+        stats.temp = 15;
     }
 
     // Update is called once per frame
@@ -26,7 +31,7 @@ public class Master : MonoBehaviour
     {
         if ((playerCharacter.position - PlayerEnd.position).sqrMagnitude < 15)
         {
-            Debug.Log("Game Ended");
+            SceneManager.LoadScene("EndGame");
         }
     }
 }
